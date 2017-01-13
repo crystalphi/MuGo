@@ -92,7 +92,7 @@ class PolicyNetworkBestMovePlayer(GtpInterface):
             return None
         move_probabilities = self.policy_network.run(position)
         for move in sorted_moves(move_probabilities):
-            if go.is_reasonable(position, move):
+            if is_move_reasonable(position, move):
                 return move
         return None
 
@@ -130,7 +130,7 @@ class MCTSNode():
 
     @property
     def action_score(self):
-        # Note to self: after adding value network, must calculate 
+        # Note to self: after adding value network, must calculate
         # self.Q = weighted_average(avg(values), avg(rollouts)),
         # as opposed to avg(map(weighted_average, values, rollouts))
         return self.Q + self.U
